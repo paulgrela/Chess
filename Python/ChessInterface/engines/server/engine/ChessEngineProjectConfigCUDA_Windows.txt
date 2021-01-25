@@ -1,0 +1,13 @@
+1
+0
+1
+0
+1
+0
+0
+0
+0
+1
+0
+..\workdir\last_actual_chessboard_state.txt
+1

@@ -1,0 +1,145 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{F67378D1-C60C-4F5F-94C0-56AE4716609A}</ProjectGuid>
+    <RootNamespace>ChessEngineProjectCUDA</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+    <Import Project="$(VCTargetsPath)\BuildCustomizations\CUDA 10.1.props" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <IncludePath>c:\projects\Programs\CUDA\Common\Lock;c:\projects\Programs\CUDA\Common\HandleError;c:\projects\Programs\CUDA\Common\Platform;c:\Projects\Programs\CUDA\Common\Include;c:\projects\Programs\CUDA\Common\FileUtils;c:\projects\Programs\CUDA\Common\StringUtils;c:\projects\Programs\CUDA\Common\DateTimeUtils;c:\Projects\Programs\CUDA\Common\TerminalColorsUtils\;c:\projects\Programs\CUDA\Common\Logger;c:\Projects\Programs\C++\Boost\boost_1_68_0;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;WIN64;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+      <AdditionalDependencies>cudart_static.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <CudaCompile>
+      <TargetMachinePlatform>64</TargetMachinePlatform>
+    </CudaCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;WIN64;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <SubSystem>Console</SubSystem>
+      <AdditionalDependencies>cudart_static.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;cublas.lib;cudnn.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <CudaCompile>
+      <TargetMachinePlatform>64</TargetMachinePlatform>
+      <CodeGeneration>compute_75,sm_75</CodeGeneration>
+      <Optimization>O2</Optimization>
+      <Warning>InheritFromHost</Warning>
+      <TypeInfo>false</TypeInfo>
+      <FastMath>true</FastMath>
+      <Runtime>MT</Runtime>
+      <RuntimeChecks>Default</RuntimeChecks>
+    </CudaCompile>
+    <CudaLink>
+      <GPUDebugInfo>false</GPUDebugInfo>
+    </CudaLink>
+    <CudaLink>
+      <Optimization>O2</Optimization>
+    </CudaLink>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CudaCompile Include="..\..\Common\DateTimeUtils\DateTimeUtils.cu" />
+    <CudaCompile Include="..\..\Common\FileUtils\FileUtils.cu" />
+    <CudaCompile Include="..\..\Common\HandleError\HandleErrorCUDA.cu" />
+    <CudaCompile Include="..\..\Common\Logger\Logger.cu" />
+    <CudaCompile Include="..\..\Common\StringUtils\StringUtils.cu" />
+    <CudaCompile Include="ChessEngineChessboardFileReader.cu" />
+    <CudaCompile Include="ChessEngineChessboardPrinter.cu" />
+    <CudaCompile Include="ChessEngineConfigurationFileReaderWriter.cu" />
+    <CudaCompile Include="ChessEngineChessMoveBasicOperations.cu" />
+    <CudaCompile Include="ChessEngineMainThreadsManager.cu" />
+    <CudaCompile Include="ChessEngineAllPossibleMovesGenerator.cu" />
+    <CudaCompile Include="ChessEngineBestMoveFinder.cu" />
+    <CudaCompile Include="ChessEngineDataInitializer.cu" />
+    <CudaCompile Include="ChessEngineAllPossibleMovesGeneratorKernelManagerCUDA.cu" />
+    <CudaCompile Include="ChessEngineResultsStatistics.cu" />
+    <CudaCompile Include="ChessEngineMain.cu" />
+    <CudaCompile Include="ChessEngineThreadsData.cu" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\Common\DateTimeUtils\DateTimeUtils.h" />
+    <ClInclude Include="..\..\Common\FileUtils\FileUtils.h" />
+    <ClInclude Include="..\..\Common\HandleError\HandleErrorCUDA.h" />
+    <ClInclude Include="..\..\Common\Include\ExceptionsMacro.h" />
+    <ClInclude Include="..\..\Common\Logger\Logger.h" />
+    <ClInclude Include="..\..\Common\Platform\DestinationPlatform.h" />
+    <ClInclude Include="..\..\Common\StringUtils\StringUtils.h" />
+    <ClInclude Include="..\..\Common\TerminalColorsUtils\TerminalColorsUtils.h" />
+    <ClInclude Include="ChessEngineChessboardFileReader.h" />
+    <ClInclude Include="ChessEngineChessboardPrinter.h" />
+    <ClInclude Include="ChessEngineConfigurationFileReaderWriter.h" />
+    <ClInclude Include="ChessEngineConstants.h" />
+    <ClInclude Include="ChessEngineChessMoveBasicOperations.h" />
+    <ClInclude Include="ChessEngineMainThreadsManager.h" />
+    <ClInclude Include="ChessEngineAllPossibleMovesGenerator.h" />
+    <ClInclude Include="ChessEngineBestMoveFinder.h" />
+    <ClInclude Include="ChessEngineAllPossibleMovesGeneratorKernelCUDA.h" />
+    <ClInclude Include="ChessEngineDataInitializer.h" />
+    <ClInclude Include="ChessEngineAllPossibleMovesGeneratorKernelManagerCUDA.h" />
+    <ClInclude Include="ChessEngineResultsStatistics.h" />
+    <ClInclude Include="ChessEngineThreadsData.h" />
+    <ClInclude Include="ChessEngineTypes.h" />
+    <ClInclude Include="ChessEngineTypesCUDA.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+    <Import Project="$(VCTargetsPath)\BuildCustomizations\CUDA 10.1.targets" />
+  </ImportGroup>
+</Project>

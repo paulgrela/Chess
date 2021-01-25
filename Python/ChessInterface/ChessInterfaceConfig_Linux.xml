@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Settings>
+	<General>
+		<PrintAllFoundPathsToMate>1</PrintAllFoundPathsToMate>
+		<LogDateTimeToMovesHistoryFiles>true</LogDateTimeToMovesHistoryFiles>
+		<LogAllToScreen>true</LogAllToScreen>
+		<LogErrorsToScreen>false</LogErrorsToScreen>
+        <ForceStalemateAfterNumberOfMoves>201</ForceStalemateAfterNumberOfMoves>
+	</General>
+    <ChessEngines>
+        <ChessEngine id="1">
+            <Engine>ChessEngineProjectCUDA</Engine>
+            <Config>ChessEngineProjectConfigCUDA_Linux.txt</Config>
+        </ChessEngine>
+        <ChessEngine id="2">
+            <Engine>ChessEngineProjectCUDA1</Engine>
+            <Config>ChessEngineProjectConfigCUDA_Linux.txt</Config>
+        </ChessEngine>
+        <ChessEngine id="3">
+            <Engine>ChessEngineProject</Engine>
+            <Config>ChessEngineProjectConfig_Linux.xml</Config>
+        </ChessEngine>
+    </ChessEngines>
+	<Network>
+		<Host>127.0.0.1</Host>
+		<Port>50006</Port>
+	</Network>
+	<ChessBoard>
+		<ChessBoardColors>
+			<BackgroundFirstColorR>204</BackgroundFirstColorR>
+			<BackgroundFirstColorG>204</BackgroundFirstColorG>
+			<BackgroundFirstColorB>153</BackgroundFirstColorB>
+
+			<BackgroundSecondColorR>51</BackgroundSecondColorR>
+			<BackgroundSecondColorG>153</BackgroundSecondColorG>
+			<BackgroundSecondColorB>51</BackgroundSecondColorB>
+
+			<WhitePiecesColorR>255</WhitePiecesColorR>
+			<WhitePiecesColorG>255</WhitePiecesColorG>
+			<WhitePiecesColorB>255</WhitePiecesColorB>
+
+			<BlackPiecesColorR>0</BlackPiecesColorR>
+			<BlackPiecesColorG>0</BlackPiecesColorG>
+			<BlackPiecesColorB>0</BlackPiecesColorB>
+		</ChessBoardColors>
+	</ChessBoard>
+</Settings>

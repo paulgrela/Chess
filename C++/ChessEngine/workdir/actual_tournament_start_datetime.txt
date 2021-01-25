@@ -1,0 +1,1 @@
+C:\Projects\Programs\Python\Chess\ChessInterface\engines\client\tourns\tournament_2020_12_14_21_10_40

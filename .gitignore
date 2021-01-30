@@ -1,0 +1,4 @@
+.idea
+C++/ChessEngine/build/
+C++/ChessEngine/MPIbuild
+CUDA/ChessSolutionCUDA/ChessEngineProjectCUDA/build/

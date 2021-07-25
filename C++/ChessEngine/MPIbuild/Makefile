@@ -33,7 +33,7 @@ ChessEngineChessboardFileReader.o: ../ChessEngineChessboardFileReader.cpp
 	mpic++ $(INCLUDES) -std=c++20 -Ofast -o $@ -c $<
 
 ChessEngineConfigurationFileReaderWriter.o: ../ChessEngineConfigurationFileReaderWriter.cpp
-	mpic++ $(INCLUDES) -std=c++17 -Ofast -o $@ -c $<
+	mpic++ $(INCLUDES) -std=c++20 -Ofast -o $@ -c $<
 
 ChessEngineChessboardPrinter.o: ../ChessEngineChessboardPrinter.cpp
 	mpic++ $(INCLUDES) -std=c++20 -Ofast -o $@ -c $<

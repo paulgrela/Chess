@@ -10,7 +10,7 @@
 #include <string.h>
 #endif
 
-#define NUSE_MPI
+#define USE_MPI
 
 #ifdef USE_MPI
 #include <mpi.h>

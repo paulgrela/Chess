@@ -1,13 +1,12 @@
 cmake_minimum_required(VERSION 3.0.0)
 project(ChessEngineProject)
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(CMAKE_CXX_FLAGS_RELEASE "-O3")
 set(CMAKE_CXX_FLAGS "-Ofast")
 
 include_directories(
-        "../boost/*"
         "../Common/Platform"
         "../Common/Include"
         "../Common/Logger"

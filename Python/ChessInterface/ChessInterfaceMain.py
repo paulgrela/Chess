@@ -3,7 +3,8 @@ from ChessInterfaceConstants import ChessInterfaceConstants
 import ChessInterfaceFiles
 import ChessInterfaceFrame
 
-from tkinter import *
+#from tkinter import *
+import sys
 import argparse
 import subprocess
 import platform

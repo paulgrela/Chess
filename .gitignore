@@ -1,4 +1,7 @@
 .idea
 C++/ChessEngine/build/
-C++/ChessEngine/MPIbuild
+C++/ChessEngine/MPIbuild/
+C++/ChessEngine/cmake-build-release/
 CUDA/ChessSolutionCUDA/ChessEngineProjectCUDA/build/
+Python/ChessInterface/__pycache__/
+Python/ChessInterface/engines/

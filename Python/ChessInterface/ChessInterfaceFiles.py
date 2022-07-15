@@ -71,7 +71,8 @@ def UseEngine(ChessInterfaceFrameObject):
     elif LastActualMove == (ChessInterfaceConstants.STALEMATE + "\n"):
         print(LastActualMove)
     else:
-        LastActualMoveParsed = parse.parse("{}[{} {}]", LastActualMove)
+        LastActualMoveParsed = parse.parse("{}[{} {}]\n", LastActualMove)
+        #LastActualMoveParsed = parse.parse("{}[{} {}]", LastActualMove)
         print("PARSED MOVE = ", LastActualMoveParsed)
         LastActualMoveFrom, LastActualMoveTo = LastActualMoveParsed[1].lower(), LastActualMoveParsed[2].lower()
 

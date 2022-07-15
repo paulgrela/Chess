@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.0.0)
 
-#set(CMAKE_CUDA_COMPILER "/usr/local/cuda-11.2/bin/nvcc")
-#set(CMAKE_CUDA_COMPILER "/usr/local/cuda-11.2")
+set(CMAKE_CUDA_COMPILER "/usr/local/cuda-10.2/bin/nvcc")
+#set(CMAKE_CUDA_COMPILER "/usr/local/cuda-10.2")
 
 project(ChessEngineProjectCUDA LANGUAGES CUDA CXX)
 
@@ -48,7 +48,7 @@ add_executable(
         ChessEngineMainThreadsManager.cu
         )
 
-target_link_libraries(${PROJECT_NAME} -static-libgcc -static-libstdc++ -lpthread -lstdc++fs /usr/local/cuda-11.2/lib64/libcudart.so)
+target_link_libraries(${PROJECT_NAME} -static-libgcc -static-libstdc++ -lpthread -lstdc++fs /usr/local/cuda-10.2/lib64/libcudart.so)
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})

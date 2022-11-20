@@ -1,7 +1,7 @@
 #pragma once
 
-#ifndef _CHESS_MOVE_BASIC_OPERATIONS_H
-#define _CHESS_MOVE_BASIC_OPERATIONS_H
+#ifndef _CHESS_ENGINE_MOVE_BASIC_OPERATIONS_H
+#define _CHESS_ENGINE_MOVE_BASIC_OPERATIONS_H
 
 #include <string>
 #include <vector>

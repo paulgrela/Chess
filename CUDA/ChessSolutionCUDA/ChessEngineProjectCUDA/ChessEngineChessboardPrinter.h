@@ -1,7 +1,7 @@
 #pragma once
 
-#ifndef _CHESS_BOARD_PRINTER_H_
-#define _CHESS_BOARD_PRINTER_H_
+#ifndef _CHESS_ENGINE_BOARD_PRINTER_H_
+#define _CHESS_ENGINE_BOARD_PRINTER_H_
 
 #include <string>
 #include <ostream>

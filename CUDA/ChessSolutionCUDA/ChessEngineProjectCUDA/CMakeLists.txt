@@ -29,22 +29,41 @@ include_directories(
 
 add_executable(
         ChessEngineProjectCUDA
+        ../../Common/Logger/Logger.h
         ../../Common/Logger/Logger.cpp
+        ../../Common/FileUtils/FileUtils.h
         ../../Common/FileUtils/FileUtils.cpp
+        ../../Common/StringUtils/StringUtils.h
         ../../Common/StringUtils/StringUtils.cpp
+        ../../Common/DateTimeUtils/DateTimeUtils.h
         ../../Common/DateTimeUtils/DateTimeUtils.cpp
+        ../../Common/HandleError/HandleErrorCUDA.h
         ../../Common/HandleError/HandleErrorCUDA.cu
         ChessEngineMain.cu
+        ChessEngineTypes.h
+        ChessEngineTypesCUDA.h
+        ChessEngineThreadsData.h
         ChessEngineThreadsData.cu
+        ChessEngineChessMoveBasicOperations.h
         ChessEngineChessMoveBasicOperations.cu
+        ChessEngineChessboardFileReader.h
         ChessEngineChessboardFileReader.cu
+        ChessEngineConfigurationFileReaderWriter.h
         ChessEngineConfigurationFileReaderWriter.cu
+        ChessEngineChessboardPrinter.h
         ChessEngineChessboardPrinter.cu
+        ChessEngineDataInitializer.h
         ChessEngineDataInitializer.cu
+        ChessEngineBestMoveFinder.h
         ChessEngineBestMoveFinder.cu
+        ChessEngineResultsStatistics.h
         ChessEngineResultsStatistics.cu
+        ChessEngineAllPossibleMovesGenerator.h
         ChessEngineAllPossibleMovesGenerator.cu
+        ChessEngineAllPossibleMovesGeneratorKernelCUDA.h
+        ChessEngineAllPossibleMovesGeneratorKernelManagerCUDA.h
         ChessEngineAllPossibleMovesGeneratorKernelManagerCUDA.cu
+        ChessEngineMainThreadsManager.h
         ChessEngineMainThreadsManager.cu
         )
 

@@ -140,17 +140,25 @@ inline void ChessEngineAllPossibleMovesGenerator::SaveChessBoardStateForFullSpee
     {
         OneChessBoardForChessEngineThreadsStartData OneChessBoardForChessEngineThreadsStartDataObject;
 
-        OneChessBoardForChessEngineThreadsStartDataObject.DeepLevel = DeepLevel + 1;
-        OneChessBoardForChessEngineThreadsStartDataObject.IsAnyPawnPromoted = IsAnyPawnPromoted;
+        if (ChessEngineThreadsStartData::NumberOfPass == 2 && ChessEngineThreadsStartData::StartChessBoardNum <= ChessEngineThreadsStartData::ChessBoardsForFullSpeedThreadsArraySize && ChessEngineThreadsStartData::ChessBoardsForFullSpeedThreadsArraySize <= ChessEngineThreadsStartData::EndChessBoardNum)
+        {
+            OneChessBoardForChessEngineThreadsStartDataObject.DeepLevel = DeepLevel + 1;
+            OneChessBoardForChessEngineThreadsStartDataObject.IsAnyPawnPromoted = IsAnyPawnPromoted;
 
-        memcpy(OneChessBoardForChessEngineThreadsStartDataObject.ChessBoard, ChessBoard, sizeof(PieceNumType) * MaxChessSizeX * MaxChessSizeY);
-        memcpy(OneChessBoardForChessEngineThreadsStartDataObject.Pieces, Pieces, sizeof(ChessPiece) * NumberOfPieces);
-        memcpy(OneChessBoardForChessEngineThreadsStartDataObject.ActuallyInvestigatedMovesPath, ActuallyInvestigatedMovesPath, sizeof(ChessMove) * OneChessBoardForChessEngineThreadsStartDataObject.DeepLevel);
+            memcpy(OneChessBoardForChessEngineThreadsStartDataObject.ChessBoard, ChessBoard, sizeof(PieceNumType) * MaxChessSizeX * MaxChessSizeY);
+            memcpy(OneChessBoardForChessEngineThreadsStartDataObject.Pieces, Pieces, sizeof(ChessPiece) * NumberOfPieces);
+            memcpy(OneChessBoardForChessEngineThreadsStartDataObject.ActuallyInvestigatedMovesPath, ActuallyInvestigatedMovesPath, sizeof(ChessMove) * OneChessBoardForChessEngineThreadsStartDataObject.DeepLevel);
+        }
 
         lock_guard<mutex> LockGuardObject{ChessEngineThreadsStartData::ChessBoardsForFullSpeedThreadsArrayMutex};
-        ChessEngineThreadsStartData::ChessBoardsForFullSpeedThreadsArrayPointer[ChessEngineThreadsStartData::ChessBoardsForFullSpeedThreadsArraySize] = OneChessBoardForChessEngineThreadsStartDataObject;
-        if (ChessEngineThreadsStartData::ChessBoardsForFullSpeedThreadsArraySize + 1 < ChessEngineConfigurationFileReaderWriterObject.MaxNumberOfChessBoardsForFastExecution)
-            ChessEngineThreadsStartData::ChessBoardsForFullSpeedThreadsArraySize++;
+
+        if (ChessEngineThreadsStartData::NumberOfPass == 2 && ChessEngineThreadsStartData::StartChessBoardNum <= ChessEngineThreadsStartData::ChessBoardsForFullSpeedThreadsArraySize && ChessEngineThreadsStartData::ChessBoardsForFullSpeedThreadsArraySize <= ChessEngineThreadsStartData::EndChessBoardNum)
+            ChessEngineThreadsStartData::ChessBoardsForFullSpeedThreadsArrayPointer.emplace_back(OneChessBoardForChessEngineThreadsStartDataObject);
+
+        //if (ChessEngineThreadsStartData::ChessBoardsForFullSpeedThreadsArraySize + 1 < ChessEngineConfigurationFileReaderWriterObject.MaxNumberOfChessBoardsForFastExecution)
+            //ChessEngineThreadsStartData::ChessBoardsForFullSpeedThreadsArraySize++;
+
+        ChessEngineThreadsStartData::ChessBoardsForFullSpeedThreadsArraySize++;
     }
     CATCH("saving chess boards for full speed threads")
 }

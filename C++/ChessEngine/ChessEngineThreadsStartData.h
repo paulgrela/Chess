@@ -21,9 +21,12 @@ struct OneChessBoardForChessEngineThreadsStartData
 class ChessEngineThreadsStartData
 {
 public:
+    static inline int NumberOfPass;
+    static inline int StartChessBoardNum;
+    static inline int EndChessBoardNum;
     static inline std::mutex ChessBoardsForFullSpeedThreadsArrayMutex;
     static inline LengthType ChessBoardsForFullSpeedThreadsArraySize;
-    static inline OneChessBoardForChessEngineThreadsStartData* ChessBoardsForFullSpeedThreadsArrayPointer;
+    static inline std::vector<OneChessBoardForChessEngineThreadsStartData> ChessBoardsForFullSpeedThreadsArrayPointer;
     static inline bool FullSpeedExecutionInThreads;
 };
 

@@ -525,14 +525,23 @@ ChessEngineMainThreadsManager::ChessEngineMainThreadsManager()
 
                 const auto start_time = chrono::high_resolution_clock::now();
 
-
                 ChessEngineThreadsStartData::NumberOfPass = 1;
                 GenerateAllPossibleCombinationsOfMovesToFindChessBoardsForFullSpeedThreads();
+
+
+                ChessEngineAllPossibleMovesGeneratorObjects[0].ChessEngineResultsStatisticsObject.ClearAllStatistics();
+                ChessEngineChessboardFileReader(ChessEngineTestObject.ChessBoardFileName, &ChessEngineAllPossibleMovesGeneratorObjects[0].ChessBoardStartData);
+                ChessEngineAllPossibleMovesGeneratorObjects[0].ChessEngineDataInitializerObject.ClearDataForAllPossibleMovesGeneratorAlgorithm();
+                ChessEngineAllPossibleMovesGeneratorObjects[0].ChessEngineDataInitializerObject.FindStartPositionsOfPieces();
+
+                //PrepareData(ChessEngineTestObject.ChessBoardFileName, ChessEngineTestObject.TestId, ActualDateTimeStr);
 
                 ChessEngineThreadsStartData::NumberOfPass = 2;
                 LengthType ChessBoardsAveragePerThread = ChessEngineThreadsStartData::ChessBoardsForFullSpeedThreadsArraySize / NumberOfMPIProcesses + 1;
                 ChessEngineThreadsStartData::StartChessBoardNum = MPIProcessIdentifier * ChessBoardsAveragePerThread;
                 ChessEngineThreadsStartData::EndChessBoardNum = MPIProcessIdentifier * ChessBoardsAveragePerThread + ChessBoardsAveragePerThread - 1 < ChessEngineThreadsStartData::ChessBoardsForFullSpeedThreadsArraySize ? MPIProcessIdentifier * ChessBoardsAveragePerThread + ChessBoardsAveragePerThread - 1 : ChessEngineThreadsStartData::ChessBoardsForFullSpeedThreadsArraySize - 1;
+
+                cout <<"MPI process identifier = " << MPIProcessIdentifier << " Number of MPI processes = " << NumberOfMPIProcesses << " StartChessBoardNum = " << ChessEngineThreadsStartData::StartChessBoardNum << " EndChessBoardNum = " << ChessEngineThreadsStartData::EndChessBoardNum << endl;
 
                 GenerateAllPossibleCombinationsOfMovesToFindChessBoardsForFullSpeedThreads();
 

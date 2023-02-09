@@ -138,7 +138,7 @@ inline void ChessEngineAllPossibleMovesGenerator::SaveChessBoardStateForFullSpee
 {
     try
     {
-        if (ChessEngineThreadsStartData::NumberOfPass == 2)
+        if (ChessEngineThreadsStartData::PassCounter == 2)
             if (ChessEngineThreadsStartData::StartChessBoardNum <= ChessEngineThreadsStartData::ChessBoardsForFullSpeedThreadsArraySize && ChessEngineThreadsStartData::ChessBoardsForFullSpeedThreadsArraySize <= ChessEngineThreadsStartData::EndChessBoardNum)
             {
                 OneChessBoardForChessEngineThreadsStartData OneChessBoardForChessEngineThreadsStartDataObject;
@@ -149,8 +149,6 @@ inline void ChessEngineAllPossibleMovesGenerator::SaveChessBoardStateForFullSpee
                 memcpy(OneChessBoardForChessEngineThreadsStartDataObject.ChessBoard, ChessBoard, sizeof(PieceNumType) * MaxChessSizeX * MaxChessSizeY);
                 memcpy(OneChessBoardForChessEngineThreadsStartDataObject.Pieces, Pieces, sizeof(ChessPiece) * NumberOfPieces);
                 memcpy(OneChessBoardForChessEngineThreadsStartDataObject.ActuallyInvestigatedMovesPath, ActuallyInvestigatedMovesPath, sizeof(ChessMove) * OneChessBoardForChessEngineThreadsStartDataObject.DeepLevel);
-
-                lock_guard<mutex> LockGuardObject{ChessEngineThreadsStartData::ChessBoardsForFullSpeedThreadsArrayMutex};
 
                 ChessEngineThreadsStartData::ChessBoardsForFullSpeedThreadsArrayPointer.emplace_back(OneChessBoardForChessEngineThreadsStartDataObject);
             }

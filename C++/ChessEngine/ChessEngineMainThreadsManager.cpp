@@ -97,45 +97,29 @@ inline void ChessEngineMainThreadsManager::PrepareData(const string& ChessBoardF
 	CATCH_AND_THROW("preparing data")
 }
 
-inline void ChessEngineMainThreadsManager::GenerateAllPossibleCombinationsOfMovesToFindChessBoardsForFullSpeedThreads()
+inline void ChessEngineMainThreadsManager::GenerateAllPossibleCombinationsOfMovesToFindChessBoardsForFullSpeedThreads(const int PassCounter)
 {
     try
     {
+        ChessEngineThreadsStartData::PassCounter = PassCounter;
+        #ifdef USE_MPI
+        if (ChessEngineThreadsStartData::PassCounter == 2)
+        {
+            LengthType ChessBoardsAveragePerThread = ChessEngineThreadsStartData::ChessBoardsForFullSpeedThreadsArraySize / NumberOfMPIProcesses + 1;
+            ChessEngineThreadsStartData::StartChessBoardNum = MPIProcessIdentifier * ChessBoardsAveragePerThread;
+            ChessEngineThreadsStartData::EndChessBoardNum = MPIProcessIdentifier * ChessBoardsAveragePerThread + ChessBoardsAveragePerThread - 1 < ChessEngineThreadsStartData::ChessBoardsForFullSpeedThreadsArraySize ? MPIProcessIdentifier * ChessBoardsAveragePerThread + ChessBoardsAveragePerThread - 1 : ChessEngineThreadsStartData::ChessBoardsForFullSpeedThreadsArraySize - 1;
+        }
+        #endif
+
+        #ifndef USE_MPI
+        ChessEngineThreadsStartData::StartChessBoardNum = 0;
+        ChessEngineThreadsStartData::EndChessBoardNum = ChessEngineThreadsStartData::ChessBoardsForFullSpeedThreadsArraySize;
+        #endif
+
         ChessEngineThreadsStartData::ChessBoardsForFullSpeedThreadsArraySize = 0;
         ChessEngineThreadsStartData::FullSpeedExecutionInThreads = false;
 
-        #ifdef USE_MPI
-        ChessEngineConfigurationFileReaderWriterObject.MultiThreaded = false;
-        #endif
-
-        if (ChessEngineConfigurationFileReaderWriterObject.MultiThreaded == false)
-            ChessEngineAllPossibleMovesGeneratorObjects[0].GenerateAllPossibleCombinationsOfMoves<White, Black, StartOfBlackPiecesNum, EndOfBlackPiecesNum>();
-        else
-        {
-            const bool IsCheck = ChessEngineAllPossibleMovesGeneratorObjects[0].VerifyCheckOfKing<White, Black>();
-
-            bool PossibleMove = false;
-
-            ThreadNumType MaxThreadsForGet = 0;
-
-            ChessPiece PiecesLocalCopy[NumberOfPieces];
-            memcpy(PiecesLocalCopy, ChessEngineAllPossibleMovesGeneratorObjects[0].Pieces, (EndOfWhitePiecesNum + 1) * sizeof(ChessPiece));
-
-            future<bool> ResultsFromGenerateAllPossibleMovesForThread[MaxNumberOfThreads];
-
-            for (PieceNumType PieceNum = StartOfWhitePiecesNum; PieceNum <= EndOfWhitePiecesNum; PieceNum++)
-                if (PiecesLocalCopy[PieceNum].Alive == true)
-                {
-                    ResultsFromGenerateAllPossibleMovesForThread[MaxThreadsForGet] = async(launch::async, GenerateAllPossibleMovesForPiecesFunctors[MaxThreadsForGet][PieceNum], &ChessEngineAllPossibleMovesGeneratorObjects[MaxThreadsForGet], PiecesLocalCopy[PieceNum].ActualPosX, PiecesLocalCopy[PieceNum].ActualPosY);
-                    MaxThreadsForGet++;
-                }
-
-            for (ThreadNumType ThreadForGetPos = 0; ThreadForGetPos < MaxThreadsForGet; ThreadForGetPos++)
-                if (ResultsFromGenerateAllPossibleMovesForThread[ThreadForGetPos].get() == true)
-                    PossibleMove = true;
-
-            ChessEngineAllPossibleMovesGeneratorObjects[0].UpdateDataForIsCheckAndPossibleMove<White, Black, StartOfBlackPiecesNum, EndOfBlackPiecesNum>(IsCheck, PossibleMove);
-        }
+        ChessEngineAllPossibleMovesGeneratorObjects[0].GenerateAllPossibleCombinationsOfMoves<White, Black, StartOfBlackPiecesNum, EndOfBlackPiecesNum>();
     }
     CATCH("generating all possible combinations of moves")
 }
@@ -371,26 +355,6 @@ inline void ChessEngineMainThreadsManager::GenerateAllPossibleCombinationsOfMove
         if (MPIProcessIdentifier > 0)
             ChessEngineAllPossibleMovesGeneratorObjects[0].ChessEngineResultsStatisticsObject.ClearAllStatistics();
 
-//        LengthType ChessBoardsAveragePerThread = ChessEngineThreadsStartData::ChessBoardsForFullSpeedThreadsArraySize / NumberOfMPIProcesses + 1;
-//
-//        PosType StartChessBoardNum = MPIProcessIdentifier * ChessBoardsAveragePerThread;
-//        PosType EndChessBoardNum = MPIProcessIdentifier * ChessBoardsAveragePerThread + ChessBoardsAveragePerThread - 1 < ChessEngineThreadsStartData::ChessBoardsForFullSpeedThreadsArraySize ? MPIProcessIdentifier * ChessBoardsAveragePerThread + ChessBoardsAveragePerThread - 1 : ChessEngineThreadsStartData::ChessBoardsForFullSpeedThreadsArraySize - 1;
-//
-//        if (ChessEngineConfigurationFileReaderWriterObject.PrintMPIProcessesInformationData == true)
-//            cout <<"MPI process identifier = " << MPIProcessIdentifier << " Number of MPI processes = " << NumberOfMPIProcesses << " StartChessBoardNum = " << StartChessBoardNum << " EndChessBoardNum = " << EndChessBoardNum << endl;
-
-//        for (PosType ChessBoardNum = StartChessBoardNum; ChessBoardNum <= EndChessBoardNum; ChessBoardNum++)
-//        {
-//            ChessEngineAllPossibleMovesGeneratorObjects[0].DeepLevel = ChessEngineThreadsStartData::ChessBoardsForFullSpeedThreadsArrayPointer[ChessBoardNum].DeepLevel;
-//            ChessEngineAllPossibleMovesGeneratorObjects[0].IsAnyPawnPromoted = ChessEngineThreadsStartData::ChessBoardsForFullSpeedThreadsArrayPointer[ChessBoardNum].IsAnyPawnPromoted;
-//
-//            memcpy(ChessEngineAllPossibleMovesGeneratorObjects[0].ChessBoard, ChessEngineThreadsStartData::ChessBoardsForFullSpeedThreadsArrayPointer[ChessBoardNum].ChessBoard, sizeof(PieceNumType) * MaxChessSizeX * MaxChessSizeY);
-//            memcpy(ChessEngineAllPossibleMovesGeneratorObjects[0].Pieces, ChessEngineThreadsStartData::ChessBoardsForFullSpeedThreadsArrayPointer[ChessBoardNum].Pieces, sizeof(ChessPiece) * NumberOfPieces);
-//            memcpy(ChessEngineAllPossibleMovesGeneratorObjects[0].ActuallyInvestigatedMovesPath, ChessEngineThreadsStartData::ChessBoardsForFullSpeedThreadsArrayPointer[ChessBoardNum].ActuallyInvestigatedMovesPath, sizeof(ChessMove) * ChessEngineThreadsStartData::ChessBoardsForFullSpeedThreadsArrayPointer[ChessBoardNum].DeepLevel);
-//
-//            ChessEngineAllPossibleMovesGeneratorObjects[0].GenerateAllPossibleCombinationsOfMoves<White, Black, StartOfBlackPiecesNum, EndOfBlackPiecesNum>();
-//        }
-
         for (const auto& ChessBoardObject : ChessEngineThreadsStartData::ChessBoardsForFullSpeedThreadsArrayPointer)
         {
             ChessEngineAllPossibleMovesGeneratorObjects[0].DeepLevel = ChessBoardObject.DeepLevel;
@@ -525,33 +489,21 @@ ChessEngineMainThreadsManager::ChessEngineMainThreadsManager()
 
                 const auto start_time = chrono::high_resolution_clock::now();
 
-                ChessEngineThreadsStartData::NumberOfPass = 1;
-                GenerateAllPossibleCombinationsOfMovesToFindChessBoardsForFullSpeedThreads();
+                GenerateAllPossibleCombinationsOfMovesToFindChessBoardsForFullSpeedThreads(1);
 
+                #ifdef USE_MPI
+                if (ChessEngineConfigurationFileReaderWriterObject.PrintMPIProcessesInformationData == true)
+                    cout <<"MPI process identifier = " << MPIProcessIdentifier << " Number of MPI processes = " << NumberOfMPIProcesses << " StartChessBoardNum = " << ChessEngineThreadsStartData::StartChessBoardNum << " EndChessBoardNum = " << ChessEngineThreadsStartData::EndChessBoardNum << endl;
+                #endif
 
-                ChessEngineAllPossibleMovesGeneratorObjects[0].ChessEngineResultsStatisticsObject.ClearAllStatistics();
-                ChessEngineChessboardFileReader(ChessEngineTestObject.ChessBoardFileName, &ChessEngineAllPossibleMovesGeneratorObjects[0].ChessBoardStartData);
-                ChessEngineAllPossibleMovesGeneratorObjects[0].ChessEngineDataInitializerObject.ClearDataForAllPossibleMovesGeneratorAlgorithm();
-                ChessEngineAllPossibleMovesGeneratorObjects[0].ChessEngineDataInitializerObject.FindStartPositionsOfPieces();
+                PrepareData(ChessEngineTestObject.ChessBoardFileName, ChessEngineTestObject.TestId, ActualDateTimeStr);
 
-                //PrepareData(ChessEngineTestObject.ChessBoardFileName, ChessEngineTestObject.TestId, ActualDateTimeStr);
-
-                ChessEngineThreadsStartData::NumberOfPass = 2;
-                LengthType ChessBoardsAveragePerThread = ChessEngineThreadsStartData::ChessBoardsForFullSpeedThreadsArraySize / NumberOfMPIProcesses + 1;
-                ChessEngineThreadsStartData::StartChessBoardNum = MPIProcessIdentifier * ChessBoardsAveragePerThread;
-                ChessEngineThreadsStartData::EndChessBoardNum = MPIProcessIdentifier * ChessBoardsAveragePerThread + ChessBoardsAveragePerThread - 1 < ChessEngineThreadsStartData::ChessBoardsForFullSpeedThreadsArraySize ? MPIProcessIdentifier * ChessBoardsAveragePerThread + ChessBoardsAveragePerThread - 1 : ChessEngineThreadsStartData::ChessBoardsForFullSpeedThreadsArraySize - 1;
-
-                cout <<"MPI process identifier = " << MPIProcessIdentifier << " Number of MPI processes = " << NumberOfMPIProcesses << " StartChessBoardNum = " << ChessEngineThreadsStartData::StartChessBoardNum << " EndChessBoardNum = " << ChessEngineThreadsStartData::EndChessBoardNum << endl;
-
-                GenerateAllPossibleCombinationsOfMovesToFindChessBoardsForFullSpeedThreads();
-
-
+                GenerateAllPossibleCombinationsOfMovesToFindChessBoardsForFullSpeedThreads(2);
 
                 #ifndef USE_MPI
                 SumStatisticsFromAllChessEngineAllPossibleMovesGeneratorObjectsThreads();
 
                 GenerateAllPossibleCombinationsOfMovesInFullSpeedThreads();
-
                 #endif
 
                 #ifdef USE_MPI

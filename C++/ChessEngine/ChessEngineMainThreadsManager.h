@@ -29,7 +29,7 @@ private:
 public:
 	ChessEngineMainThreadsManager();
 private:
-	inline void GenerateAllPossibleCombinationsOfMovesToFindChessBoardsForFullSpeedThreads();
+	inline void GenerateAllPossibleCombinationsOfMovesToFindChessBoardsForFullSpeedThreads(const int PassCounter);
     #ifndef USE_MPI
     inline void GenerateAllPossibleCombinationsOfMovesInFullSpeedThreads();
     inline bool CallListOfFunctionsFromVectorOfFunctors(const PosType StartChessBoardNum, const PosType EndChessBoardNum, const ThreadNumType ThreadPos) noexcept;

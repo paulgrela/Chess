@@ -15,7 +15,7 @@ public:
 	std::uint64_t TestId;
 	bool ExecuteTestBool;
 	std::string ChessBoardFileName;
-	std::uint64_t MaxDeepLevel;
+	std::uint64_t MaxDepthLevel;
 	bool ReverseColorOfPieces;
 public:
 	bool WriteTestStatisticsToFile;

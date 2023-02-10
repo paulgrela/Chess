@@ -187,7 +187,7 @@ void ChessEngineConfigurationFileReaderWriter::ReadChessConfigurationFile(const 
 					ChessTestObject.TestId = TestPropertyTreeElement.second.get<uint64_t>("<xmlattr>.id");
 					ChessTestObject.ExecuteTestBool = TestPropertyTreeElement.second.get<bool>("ExecuteTestBool");
 					ChessTestObject.ChessBoardFileName = TestPropertyTreeElement.second.get<string>("ChessBoardFileName");
-					ChessTestObject.MaxDeepLevel = TestPropertyTreeElement.second.get<uint64_t>("MaxDepthLevel");
+					ChessTestObject.MaxDepthLevel = TestPropertyTreeElement.second.get<uint64_t>("MaxDepthLevel");
 					ChessTestObject.ReverseColorOfPieces = TestPropertyTreeElement.second.get<bool>("ReverseColorOfPieces");
 					ChessTestObject.WriteTestStatisticsToFile = TestPropertyTreeElement.second.get<bool>("WriteTestStatisticsToFile");
 					ChessTestObject.PrintTestComparisonResult = TestPropertyTreeElement.second.get<bool>("PrintTestComparisonResult");

@@ -10,7 +10,7 @@
 
 struct OneChessBoardForChessEngineThreadsStartData
 {
-    LengthType DeepLevel = 0;
+    LengthType DepthLevel = 0;
     bool IsAnyPawnPromoted = false;
 
     ChessMove ActuallyInvestigatedMovesPath[MaximalLengthOfPathToFindChessBoardsForFullSpeed];

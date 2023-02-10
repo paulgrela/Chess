@@ -357,12 +357,12 @@ inline void ChessEngineMainThreadsManager::GenerateAllPossibleCombinationsOfMove
 
         for (const auto& ChessBoardObject : ChessEngineThreadsStartData::ChessBoardsForFullSpeedThreadsArrayPointer)
         {
-            ChessEngineAllPossibleMovesGeneratorObjects[0].DepthLevel = ChessBoardObject.DeepLevel;
+            ChessEngineAllPossibleMovesGeneratorObjects[0].DepthLevel = ChessBoardObject.DepthLevel;
             ChessEngineAllPossibleMovesGeneratorObjects[0].IsAnyPawnPromoted = ChessBoardObject.IsAnyPawnPromoted;
 
             memcpy(ChessEngineAllPossibleMovesGeneratorObjects[0].ChessBoard, ChessBoardObject.ChessBoard, sizeof(PieceNumType) * MaxChessSizeX * MaxChessSizeY);
             memcpy(ChessEngineAllPossibleMovesGeneratorObjects[0].Pieces, ChessBoardObject.Pieces, sizeof(ChessPiece) * NumberOfPieces);
-            memcpy(ChessEngineAllPossibleMovesGeneratorObjects[0].ActuallyInvestigatedMovesPath, ChessBoardObject.ActuallyInvestigatedMovesPath, sizeof(ChessMove) * ChessBoardObject.DeepLevel);
+            memcpy(ChessEngineAllPossibleMovesGeneratorObjects[0].ActuallyInvestigatedMovesPath, ChessBoardObject.ActuallyInvestigatedMovesPath, sizeof(ChessMove) * ChessBoardObject.DepthLevel);
 
             ChessEngineAllPossibleMovesGeneratorObjects[0].GenerateAllPossibleCombinationsOfMoves<White, Black, StartOfBlackPiecesNum, EndOfBlackPiecesNum>();
         }
@@ -479,7 +479,7 @@ ChessEngineMainThreadsManager::ChessEngineMainThreadsManager()
             {
                 ChessEngineConfigurationFileReaderWriterObject.FirstMove = false;
 
-                ChessEngineConfigurationFileReaderWriterObject.MaxDepthLevel = ChessEngineTestObject.MaxDeepLevel;
+                ChessEngineConfigurationFileReaderWriterObject.MaxDepthLevel = ChessEngineTestObject.MaxDepthLevel;
                 ChessEngineConfigurationFileReaderWriterObject.ReverseColorOfPieces = ChessEngineTestObject.ReverseColorOfPieces;
 
                 PrepareData(ChessEngineTestObject.ChessBoardFileName, ChessEngineTestObject.TestId, ActualDateTimeStr);

@@ -143,12 +143,12 @@ inline void ChessEngineAllPossibleMovesGenerator::SaveChessBoardStateForFullSpee
             {
                 OneChessBoardForChessEngineThreadsStartData OneChessBoardForChessEngineThreadsStartDataObject;
 
-                OneChessBoardForChessEngineThreadsStartDataObject.DeepLevel = DepthLevel + 1;
+                OneChessBoardForChessEngineThreadsStartDataObject.DepthLevel = DepthLevel + 1;
                 OneChessBoardForChessEngineThreadsStartDataObject.IsAnyPawnPromoted = IsAnyPawnPromoted;
 
                 memcpy(OneChessBoardForChessEngineThreadsStartDataObject.ChessBoard, ChessBoard, sizeof(PieceNumType) * MaxChessSizeX * MaxChessSizeY);
                 memcpy(OneChessBoardForChessEngineThreadsStartDataObject.Pieces, Pieces, sizeof(ChessPiece) * NumberOfPieces);
-                memcpy(OneChessBoardForChessEngineThreadsStartDataObject.ActuallyInvestigatedMovesPath, ActuallyInvestigatedMovesPath, sizeof(ChessMove) * OneChessBoardForChessEngineThreadsStartDataObject.DeepLevel);
+                memcpy(OneChessBoardForChessEngineThreadsStartDataObject.ActuallyInvestigatedMovesPath, ActuallyInvestigatedMovesPath, sizeof(ChessMove) * OneChessBoardForChessEngineThreadsStartDataObject.DepthLevel);
 
                 ChessEngineThreadsStartData::ChessBoardsForFullSpeedThreadsArrayPointer.emplace_back(OneChessBoardForChessEngineThreadsStartDataObject);
             }

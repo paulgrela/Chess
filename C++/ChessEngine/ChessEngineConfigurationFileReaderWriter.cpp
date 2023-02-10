@@ -36,6 +36,7 @@ void ChessEngineConfigurationFileReaderWriter::ReadChessConfigurationFile(const 
 				WriteTestsStatisticsToFile = MainConfigPropertyTreeElement.second.get<bool>("WriteTestsStatisticsToFile");
 
                 MaxNumberOfChessBoardsForFastExecution = MainConfigPropertyTreeElement.second.get<uint64_t>("MaxNumberOfChessBoardsForFastExecution");
+                MaxDepthLevelToGetFoundMovesPathsToMate = MainConfigPropertyTreeElement.second.get<uint64_t>("MaxDepthLevelToGetFoundMovesPathsToMate");
 			}
 			else
             if (MainConfigPropertyTreeElement.first == "ChessBoardColors")
@@ -186,7 +187,7 @@ void ChessEngineConfigurationFileReaderWriter::ReadChessConfigurationFile(const 
 					ChessTestObject.TestId = TestPropertyTreeElement.second.get<uint64_t>("<xmlattr>.id");
 					ChessTestObject.ExecuteTestBool = TestPropertyTreeElement.second.get<bool>("ExecuteTestBool");
 					ChessTestObject.ChessBoardFileName = TestPropertyTreeElement.second.get<string>("ChessBoardFileName");
-					ChessTestObject.MaxDeepLevel = TestPropertyTreeElement.second.get<uint64_t>("MaxDeepLevel");
+					ChessTestObject.MaxDeepLevel = TestPropertyTreeElement.second.get<uint64_t>("MaxDepthLevel");
 					ChessTestObject.ReverseColorOfPieces = TestPropertyTreeElement.second.get<bool>("ReverseColorOfPieces");
 					ChessTestObject.WriteTestStatisticsToFile = TestPropertyTreeElement.second.get<bool>("WriteTestStatisticsToFile");
 					ChessTestObject.PrintTestComparisonResult = TestPropertyTreeElement.second.get<bool>("PrintTestComparisonResult");

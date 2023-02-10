@@ -259,7 +259,7 @@ void ChessEngineBestMoveFinder::FindRandomFirstPossibleMove(ColorType Color)
         {
             ChessEngineConfigurationFileReaderWriterObject.MultiThreaded = false;
             ChessEngineConfigurationFileReaderWriterObject.FirstMove = true;
-            ChessEngineConfigurationFileReaderWriterObject.MaxDeepLevel = 1;
+            ChessEngineConfigurationFileReaderWriterObject.MaxDepthLevel = 1;
             ChessEngineThreadsStartData::ChessBoardsForFullSpeedThreadsArraySize = 0;
             ChessEngineThreadsStartData::FullSpeedExecutionInThreads = false;
 

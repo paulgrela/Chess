@@ -131,12 +131,12 @@ inline bool ChessEngineMainThreadsManager::CallListOfFunctionsFromVectorOfFuncto
     {
         for (PosType ChessBoardNum = StartChessBoardNum; ChessBoardNum <= EndChessBoardNum; ChessBoardNum++)
         {
-            ChessEngineAllPossibleMovesGeneratorObjects[ThreadPos].DeepLevel = ChessEngineThreadsStartData::ChessBoardsForFullSpeedThreadsArrayPointer[ChessBoardNum].DeepLevel;
+            ChessEngineAllPossibleMovesGeneratorObjects[ThreadPos].DepthLevel = ChessEngineThreadsStartData::ChessBoardsForFullSpeedThreadsArrayPointer[ChessBoardNum].DepthLevel;
             ChessEngineAllPossibleMovesGeneratorObjects[ThreadPos].IsAnyPawnPromoted = ChessEngineThreadsStartData::ChessBoardsForFullSpeedThreadsArrayPointer[ChessBoardNum].IsAnyPawnPromoted;
 
             memcpy(ChessEngineAllPossibleMovesGeneratorObjects[ThreadPos].ChessBoard, ChessEngineThreadsStartData::ChessBoardsForFullSpeedThreadsArrayPointer[ChessBoardNum].ChessBoard, sizeof(PieceNumType) * MaxChessSizeX * MaxChessSizeY);
             memcpy(ChessEngineAllPossibleMovesGeneratorObjects[ThreadPos].Pieces, ChessEngineThreadsStartData::ChessBoardsForFullSpeedThreadsArrayPointer[ChessBoardNum].Pieces, sizeof(ChessPiece) * NumberOfPieces);
-            memcpy(ChessEngineAllPossibleMovesGeneratorObjects[ThreadPos].ActuallyInvestigatedMovesPath, ChessEngineThreadsStartData::ChessBoardsForFullSpeedThreadsArrayPointer[ChessBoardNum].ActuallyInvestigatedMovesPath, sizeof(ChessMove) * ChessEngineThreadsStartData::ChessBoardsForFullSpeedThreadsArrayPointer[ChessBoardNum].DeepLevel);
+            memcpy(ChessEngineAllPossibleMovesGeneratorObjects[ThreadPos].ActuallyInvestigatedMovesPath, ChessEngineThreadsStartData::ChessBoardsForFullSpeedThreadsArrayPointer[ChessBoardNum].ActuallyInvestigatedMovesPath, sizeof(ChessMove) * ChessEngineThreadsStartData::ChessBoardsForFullSpeedThreadsArrayPointer[ChessBoardNum].DepthLevel);
 
             ChessEngineAllPossibleMovesGeneratorObjects[ThreadPos].GenerateAllPossibleCombinationsOfMoves<White, Black, StartOfBlackPiecesNum, EndOfBlackPiecesNum>();
         }
@@ -357,7 +357,7 @@ inline void ChessEngineMainThreadsManager::GenerateAllPossibleCombinationsOfMove
 
         for (const auto& ChessBoardObject : ChessEngineThreadsStartData::ChessBoardsForFullSpeedThreadsArrayPointer)
         {
-            ChessEngineAllPossibleMovesGeneratorObjects[0].DeepLevel = ChessBoardObject.DeepLevel;
+            ChessEngineAllPossibleMovesGeneratorObjects[0].DepthLevel = ChessBoardObject.DeepLevel;
             ChessEngineAllPossibleMovesGeneratorObjects[0].IsAnyPawnPromoted = ChessBoardObject.IsAnyPawnPromoted;
 
             memcpy(ChessEngineAllPossibleMovesGeneratorObjects[0].ChessBoard, ChessBoardObject.ChessBoard, sizeof(PieceNumType) * MaxChessSizeX * MaxChessSizeY);
@@ -479,7 +479,7 @@ ChessEngineMainThreadsManager::ChessEngineMainThreadsManager()
             {
                 ChessEngineConfigurationFileReaderWriterObject.FirstMove = false;
 
-                ChessEngineConfigurationFileReaderWriterObject.MaxDeepLevel = ChessEngineTestObject.MaxDeepLevel;
+                ChessEngineConfigurationFileReaderWriterObject.MaxDepthLevel = ChessEngineTestObject.MaxDeepLevel;
                 ChessEngineConfigurationFileReaderWriterObject.ReverseColorOfPieces = ChessEngineTestObject.ReverseColorOfPieces;
 
                 PrepareData(ChessEngineTestObject.ChessBoardFileName, ChessEngineTestObject.TestId, ActualDateTimeStr);

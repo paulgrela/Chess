@@ -7,6 +7,8 @@
 		<CompareTestStatistics>true</CompareTestStatistics>
 		<WriteTestsStatisticsToFile>false</WriteTestsStatisticsToFile>
                 <MaxNumberOfChessBoardsForFastExecution>2097152</MaxNumberOfChessBoardsForFastExecution> <!--5242880, 6291456, 8388608, 2097152-->
+                <MaxNumberOfChessBoardsForFastExecution>1048576</MaxNumberOfChessBoardsForFastExecution> <!--5242880, 6291456, 8388608, 2097152, 1048576-->
+                <MaxDepthLevelToGetFoundMovesPathsToMate>5</MaxDepthLevelToGetFoundMovesPathsToMate>
 	</Algorithm>
 	<ChessBoardColors>
 		<Color1>92</Color1><!--[92-without white chessboard fields][92-with white chessboard fields]-->
@@ -133,7 +135,7 @@
 			<ExecuteTestBool>false</ExecuteTestBool>
 			<!--true-->
 			<ChessBoardFileName>ChessBoard1.txt</ChessBoardFileName>
-			<MaxDeepLevel>5</MaxDeepLevel>
+			<MaxDepthLevel>5</MaxDepthLevel>
 			<ReverseColorOfPieces>false</ReverseColorOfPieces>
 			<WriteTestStatisticsToFile>true</WriteTestStatisticsToFile>
 			<PrintTestComparisonResult>true</PrintTestComparisonResult>
@@ -158,7 +160,7 @@
 			<ExecuteTestBool>false</ExecuteTestBool>
 			<!--true-->
 			<ChessBoardFileName>ChessBoard3.txt</ChessBoardFileName>
-			<MaxDeepLevel>5</MaxDeepLevel>
+			<MaxDepthLevel>5</MaxDepthLevel>
 			<ReverseColorOfPieces>false</ReverseColorOfPieces>
 			<WriteTestStatisticsToFile>true</WriteTestStatisticsToFile>
 			<PrintTestComparisonResult>true</PrintTestComparisonResult>
@@ -183,7 +185,7 @@
 			<ExecuteTestBool>false</ExecuteTestBool>
 			<!--true-->
 			<ChessBoardFileName>ChessBoard4.txt</ChessBoardFileName>
-			<MaxDeepLevel>5</MaxDeepLevel>
+			<MaxDepthLevel>5</MaxDepthLevel>
 			<ReverseColorOfPieces>false</ReverseColorOfPieces>
 			<WriteTestStatisticsToFile>true</WriteTestStatisticsToFile>
 			<PrintTestComparisonResult>true</PrintTestComparisonResult>
@@ -208,7 +210,7 @@
 			<ExecuteTestBool>true</ExecuteTestBool>
 			<!--true-->
 			<ChessBoardFileName>ChessBoard7.txt</ChessBoardFileName>
-			<MaxDeepLevel>5</MaxDeepLevel>
+			<MaxDepthLevel>5</MaxDepthLevel>
 			<ReverseColorOfPieces>false</ReverseColorOfPieces>
 			<WriteTestStatisticsToFile>true</WriteTestStatisticsToFile>
 			<PrintTestComparisonResult>true</PrintTestComparisonResult>
@@ -233,7 +235,7 @@
 			<ExecuteTestBool>false</ExecuteTestBool>
 			<!--true-->
 			<ChessBoardFileName>ChessBoard9.txt</ChessBoardFileName>
-			<MaxDeepLevel>5</MaxDeepLevel>
+			<MaxDepthLevel>5</MaxDepthLevel>
 			<ReverseColorOfPieces>true</ReverseColorOfPieces>
 			<WriteTestStatisticsToFile>true</WriteTestStatisticsToFile>
 			<PrintTestComparisonResult>false</PrintTestComparisonResult>
@@ -258,7 +260,7 @@
 			<ExecuteTestBool>false</ExecuteTestBool>
 			<!--true-->
 			<ChessBoardFileName>ChessBoard10.txt</ChessBoardFileName>
-			<MaxDeepLevel>5</MaxDeepLevel>
+			<MaxDepthLevel>5</MaxDepthLevel>
 			<ReverseColorOfPieces>true</ReverseColorOfPieces>
 			<WriteTestStatisticsToFile>true</WriteTestStatisticsToFile>
 			<PrintTestComparisonResult>false</PrintTestComparisonResult>
@@ -283,7 +285,7 @@
 			<ExecuteTestBool>false</ExecuteTestBool>
 			<!--true-->
 			<ChessBoardFileName>ChessBoard11.txt</ChessBoardFileName>
-			<MaxDeepLevel>5</MaxDeepLevel>
+			<MaxDepthLevel>5</MaxDepthLevel>
 			<ReverseColorOfPieces>true</ReverseColorOfPieces>
 			<WriteTestStatisticsToFile>true</WriteTestStatisticsToFile>
 			<PrintTestComparisonResult>false</PrintTestComparisonResult>
@@ -308,7 +310,7 @@
 			<ExecuteTestBool>false</ExecuteTestBool>
 			<!--true-->
 			<ChessBoardFileName>ChessBoard12.txt</ChessBoardFileName>
-			<MaxDeepLevel>5</MaxDeepLevel>
+			<MaxDepthLevel>5</MaxDepthLevel>
 			<ReverseColorOfPieces>false</ReverseColorOfPieces>
 			<WriteTestStatisticsToFile>true</WriteTestStatisticsToFile>
 			<PrintTestComparisonResult>false</PrintTestComparisonResult>
@@ -333,7 +335,7 @@
 			<ExecuteTestBool>false</ExecuteTestBool>
 			<!--true-->
 			<ChessBoardFileName>ChessBoard13.txt</ChessBoardFileName>
-			<MaxDeepLevel>5</MaxDeepLevel>
+			<MaxDepthLevel>5</MaxDepthLevel>
 			<ReverseColorOfPieces>false</ReverseColorOfPieces>
 			<WriteTestStatisticsToFile>true</WriteTestStatisticsToFile>
 			<PrintTestComparisonResult>false</PrintTestComparisonResult>
@@ -358,7 +360,7 @@
 			<ExecuteTestBool>false</ExecuteTestBool>
 			<!--true-->
 			<ChessBoardFileName>ChessBoard14.txt</ChessBoardFileName>
-			<MaxDeepLevel>5</MaxDeepLevel>
+			<MaxDepthLevel>5</MaxDepthLevel>
 			<ReverseColorOfPieces>false</ReverseColorOfPieces>
 			<WriteTestStatisticsToFile>true</WriteTestStatisticsToFile>
 			<PrintTestComparisonResult>false</PrintTestComparisonResult>
@@ -383,7 +385,7 @@
 			<ExecuteTestBool>false</ExecuteTestBool>
 			<!--true-->
 			<ChessBoardFileName>ChessBoard15.txt</ChessBoardFileName>
-			<MaxDeepLevel>5</MaxDeepLevel>
+			<MaxDepthLevel>5</MaxDepthLevel>
 			<ReverseColorOfPieces>true</ReverseColorOfPieces>
 			<WriteTestStatisticsToFile>true</WriteTestStatisticsToFile>
 			<PrintTestComparisonResult>false</PrintTestComparisonResult>
@@ -408,7 +410,7 @@
 			<ExecuteTestBool>false</ExecuteTestBool>
 			<!--true-->
 			<ChessBoardFileName>ChessBoard16.txt</ChessBoardFileName>
-			<MaxDeepLevel>5</MaxDeepLevel>
+			<MaxDepthLevel>5</MaxDepthLevel>
 			<ReverseColorOfPieces>true</ReverseColorOfPieces>
 			<WriteTestStatisticsToFile>true</WriteTestStatisticsToFile>
 			<PrintTestComparisonResult>false</PrintTestComparisonResult>
@@ -433,7 +435,7 @@
 			<ExecuteTestBool>false</ExecuteTestBool>
 			<!--true-->
 			<ChessBoardFileName>ChessBoard17.txt</ChessBoardFileName>
-			<MaxDeepLevel>5</MaxDeepLevel>
+			<MaxDepthLevel>5</MaxDepthLevel>
 			<ReverseColorOfPieces>false</ReverseColorOfPieces>
 			<WriteTestStatisticsToFile>true</WriteTestStatisticsToFile>
 			<PrintTestComparisonResult>false</PrintTestComparisonResult>
@@ -458,7 +460,7 @@
 			<ExecuteTestBool>false</ExecuteTestBool>
 			<!--true-->
 			<ChessBoardFileName>ChessBoard18.txt</ChessBoardFileName>
-			<MaxDeepLevel>5</MaxDeepLevel>
+			<MaxDepthLevel>5</MaxDepthLevel>
 			<ReverseColorOfPieces>true</ReverseColorOfPieces>
 			<WriteTestStatisticsToFile>true</WriteTestStatisticsToFile>
 			<PrintTestComparisonResult>false</PrintTestComparisonResult>
@@ -483,7 +485,7 @@
 			<ExecuteTestBool>true</ExecuteTestBool>
 			<!--true-->
 			<ChessBoardFileName>ChessBoard19.txt</ChessBoardFileName>
-			<MaxDeepLevel>5</MaxDeepLevel>
+			<MaxDepthLevel>5</MaxDepthLevel>
 			<ReverseColorOfPieces>true</ReverseColorOfPieces>
 			<WriteTestStatisticsToFile>true</WriteTestStatisticsToFile>
 			<PrintTestComparisonResult>false</PrintTestComparisonResult>
@@ -508,7 +510,7 @@
 			<ExecuteTestBool>false</ExecuteTestBool>
 			<!--true-->
 			<ChessBoardFileName>ChessBoard20.txt</ChessBoardFileName>
-			<MaxDeepLevel>5</MaxDeepLevel>
+			<MaxDepthLevel>5</MaxDepthLevel>
 			<ReverseColorOfPieces>false</ReverseColorOfPieces>
 			<WriteTestStatisticsToFile>true</WriteTestStatisticsToFile>
 			<PrintTestComparisonResult>false</PrintTestComparisonResult>
@@ -533,7 +535,7 @@
 			<ExecuteTestBool>false</ExecuteTestBool>
 			<!--true-->
 			<ChessBoardFileName>ChessBoard21.txt</ChessBoardFileName>
-			<MaxDeepLevel>5</MaxDeepLevel>
+			<MaxDepthLevel>5</MaxDepthLevel>
 			<ReverseColorOfPieces>false</ReverseColorOfPieces>
 			<WriteTestStatisticsToFile>true</WriteTestStatisticsToFile>
 			<PrintTestComparisonResult>false</PrintTestComparisonResult>
@@ -558,7 +560,7 @@
 			<ExecuteTestBool>false</ExecuteTestBool>
 			<!--true-->
 			<ChessBoardFileName>ChessBoard22.txt</ChessBoardFileName>
-			<MaxDeepLevel>5</MaxDeepLevel>
+			<MaxDepthLevel>5</MaxDepthLevel>
 			<ReverseColorOfPieces>false</ReverseColorOfPieces>
 			<WriteTestStatisticsToFile>true</WriteTestStatisticsToFile>
 			<PrintTestComparisonResult>false</PrintTestComparisonResult>

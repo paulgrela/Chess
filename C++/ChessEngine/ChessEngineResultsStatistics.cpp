@@ -23,7 +23,7 @@ void ChessEngineResultsStatistics::SumStatisticsFromTwoChessEngineResultsStatist
 {
 	try
 	{
-        for (LengthType DeepLevel = 0; DeepLevel < ChessEngineConfigurationFileReaderWriterObject.MaxDeepLevel; DeepLevel++)
+        for (LengthType DeepLevel = 0; DeepLevel < ChessEngineConfigurationFileReaderWriterObject.MaxDepthLevel; DeepLevel++)
             ChessEngineResultsStatisticsObjectMain.NumberOfExecutionsOnLevel[DeepLevel] += ChessEngineResultsStatisticsObjectToAdd.NumberOfExecutionsOnLevel[DeepLevel];
 
         ChessEngineResultsStatisticsObjectMain.NumberOfAllRecursiveMoves += ChessEngineResultsStatisticsObjectToAdd.NumberOfAllRecursiveMoves;
@@ -64,7 +64,7 @@ void ChessEngineResultsStatistics::ClearAllStatistics()
 	{
 		NumberOfAllRecursiveMoves = 0;
 
-        for (LengthType DeepLevel = 0; DeepLevel < ChessEngineConfigurationFileReaderWriterObject.MaxDeepLevel; DeepLevel++)
+        for (LengthType DeepLevel = 0; DeepLevel < ChessEngineConfigurationFileReaderWriterObject.MaxDepthLevel; DeepLevel++)
             NumberOfExecutionsOnLevel[DeepLevel] = 0;
 
 		for (ColorType Color = White; Color <= Black; Color++)
@@ -117,7 +117,7 @@ void ChessEngineResultsStatistics::PrintDetailedStatistics() const
 {
     try
     {
-        for (LengthType DeepLevel = 0; DeepLevel < ChessEngineConfigurationFileReaderWriterObject.MaxDeepLevel; DeepLevel++)
+        for (LengthType DeepLevel = 0; DeepLevel < ChessEngineConfigurationFileReaderWriterObject.MaxDepthLevel; DeepLevel++)
             LoggersManagerObject.Log(STREAM("Number of executions on level[" << DeepLevel <<"] = " << NumberOfExecutionsOnLevel[DeepLevel]));
         LoggersManagerObject.Log(STREAM(""));
     }

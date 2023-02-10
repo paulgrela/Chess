@@ -143,7 +143,7 @@ inline void ChessEngineAllPossibleMovesGenerator::SaveChessBoardStateForFullSpee
             {
                 OneChessBoardForChessEngineThreadsStartData OneChessBoardForChessEngineThreadsStartDataObject;
 
-                OneChessBoardForChessEngineThreadsStartDataObject.DeepLevel = DeepLevel + 1;
+                OneChessBoardForChessEngineThreadsStartDataObject.DeepLevel = DepthLevel + 1;
                 OneChessBoardForChessEngineThreadsStartDataObject.IsAnyPawnPromoted = IsAnyPawnPromoted;
 
                 memcpy(OneChessBoardForChessEngineThreadsStartDataObject.ChessBoard, ChessBoard, sizeof(PieceNumType) * MaxChessSizeX * MaxChessSizeY);
@@ -227,12 +227,12 @@ bool ChessEngineAllPossibleMovesGenerator::MovePieceTo(const PosType ActualPosX,
 		if (OldNewPieceNum != SpaceNum && IsOppositePieceNum<ColorOpposite>(OldNewPieceNum) == false)
 		{
             ChessEngineChessboardPrinterObject.LogPrintActualChessBoardStateToStreams(&LoggersManager::LogWithoutLineInfoOnlyToFiles, 0);
-			LoggersManagerObject.Log(STREAM("#" << ChessEngineConfigurationFileReaderWriterObject.PieceString[OldNewPieceNum] << "#" << ChessEngineConfigurationFileReaderWriterObject.PieceString[OldActPieceNum] << "# ERROR = ( " << PosType(OldNewPieceNum) << " " << ChessEngineResultsStatisticsObject.GetNumberOfAllMovesTotal() << " " << int(DeepLevel) << " ) " << string(100, SpaceChar)));
+			LoggersManagerObject.Log(STREAM("#" << ChessEngineConfigurationFileReaderWriterObject.PieceString[OldNewPieceNum] << "#" << ChessEngineConfigurationFileReaderWriterObject.PieceString[OldActPieceNum] << "# ERROR = ( " << PosType(OldNewPieceNum) << " " << ChessEngineResultsStatisticsObject.GetNumberOfAllMovesTotal() << " " << int(DepthLevel) << " ) " << string(100, SpaceChar)));
 			getchar();
 		}
 		#endif	
 
-		SaveActuallyInvestigatedMovesPathRec(ActualPosX, ActualPosY, NewPosX, NewPosY, OldActPieceNum, ActuallyInvestigatedMovesPath[DeepLevel]);
+		SaveActuallyInvestigatedMovesPathRec(ActualPosX, ActualPosY, NewPosX, NewPosY, OldActPieceNum, ActuallyInvestigatedMovesPath[DepthLevel]);
 
         if (ChessEngineConfigurationFileReaderWriterObject.FirstMove == true)
         {
@@ -245,11 +245,11 @@ bool ChessEngineAllPossibleMovesGenerator::MovePieceTo(const PosType ActualPosX,
 			Pieces[OldNewPieceNum].Alive = false;
 			ChessEngineResultsStatisticsObject.NumberOfAllOppositePiecesRemovedByMoveOfColor[Color]++;
 
-			ActuallyInvestigatedMovesPath[DeepLevel].Type = (Color == White ? 1 : -1);
+			ActuallyInvestigatedMovesPath[DepthLevel].Type = (Color == White ? 1 : -1);
 			PieceNumType PieceNumForPower = (Pieces[OldNewPieceNum].Promoted == true ? 0 : OldNewPieceNum);
-			ActuallyInvestigatedMovesPath[DeepLevel].Score = ActuallyInvestigatedMovesPath[DeepLevel].Type * ChessEngineConfigurationFileReaderWriterObject.PiecePower[PieceNumForPower] * (ChessEngineConfigurationFileReaderWriterObject.MaxDeepLevel - DeepLevel + 1);
+			ActuallyInvestigatedMovesPath[DepthLevel].Score = ActuallyInvestigatedMovesPath[DepthLevel].Type * ChessEngineConfigurationFileReaderWriterObject.PiecePower[PieceNumForPower] * (ChessEngineConfigurationFileReaderWriterObject.MaxDepthLevel - DepthLevel + 1);
 						
-			SaveTheBestMovesPath<Color, false>(DeepLevel + 1, ChessEngineResultsStatisticsObject.TheHighestScoredFoundCaptureMovesPathForAdvantageOf[White], ChessEngineResultsStatisticsObject.TheHighestScoredFoundCaptureMovesPathForAdvantageOf[Black]);
+			SaveTheBestMovesPath<Color, false>(DepthLevel + 1, ChessEngineResultsStatisticsObject.TheHighestScoredFoundCaptureMovesPathForAdvantageOf[White], ChessEngineResultsStatisticsObject.TheHighestScoredFoundCaptureMovesPathForAdvantageOf[Black]);
 		}
 
 		#ifdef __DEBUG__
@@ -259,7 +259,7 @@ bool ChessEngineAllPossibleMovesGenerator::MovePieceTo(const PosType ActualPosX,
 			{
                 ChessEngineChessboardPrinterObject.LogPrintActualChessBoardStateToStreams(&LoggersManager::LogWithoutLineInfoOnlyToFiles, 0);
 				LoggersManagerObject.Log(STREAM(""));
-				LoggersManagerObject.Log(STREAM("VERIFY REMOVE = ( " << GetChessMovesPathAsString(GetChessMovesPathVector(DeepLevel, ActuallyInvestigatedMovesPath)) << "-> " << ChessEngineResultsStatisticsObject.GetNumberOfAllMovesTotal() << " " << int(DeepLevel) << " ) " << string(100, SpaceChar)));
+				LoggersManagerObject.Log(STREAM("VERIFY REMOVE = ( " << GetChessMovesPathAsString(GetChessMovesPathVector(DepthLevel, ActuallyInvestigatedMovesPath)) << "-> " << ChessEngineResultsStatisticsObject.GetNumberOfAllMovesTotal() << " " << int(DepthLevel) << " ) " << string(100, SpaceChar)));
 				LoggersManagerObject.Log(STREAM("Piece " << ColorName[ColorOpposite] << ChessEngineConfigurationFileReaderWriterObject.PieceString[OldNewPieceNum] << " = " << Pieces[OldNewPieceNum].Alive));
 				if (ChessEngineConfigurationFileReaderWriterObject.StopWhenRemovingPiece == true)
 					getchar();
@@ -270,7 +270,7 @@ bool ChessEngineAllPossibleMovesGenerator::MovePieceTo(const PosType ActualPosX,
 			if (ChessEngineResultsStatisticsObject.GetNumberOfAllMovesTotal() % ChessEngineConfigurationFileReaderWriterObject.ModuloToWriteMove == 0)
 			{
 				LoggersManagerObject.Log(STREAM(""));
-				LoggersManagerObject.Log(STREAM("MOVE " << ColorName[Color] << " = ( " << GetChessMovesPathAsString(GetChessMovesPathVector(DeepLevel, ActuallyInvestigatedMovesPath)) << "-> " << ChessEngineResultsStatisticsObject.GetNumberOfAllMovesTotal() << " " << int(DeepLevel) << " ) " << string(100, SpaceChar)));
+				LoggersManagerObject.Log(STREAM("MOVE " << ColorName[Color] << " = ( " << GetChessMovesPathAsString(GetChessMovesPathVector(DepthLevel, ActuallyInvestigatedMovesPath)) << "-> " << ChessEngineResultsStatisticsObject.GetNumberOfAllMovesTotal() << " " << int(DepthLevel) << " ) " << string(100, SpaceChar)));
 				if (ChessEngineConfigurationFileReaderWriterObject.StopWhenMove)
 					getchar();
 			}
@@ -278,32 +278,32 @@ bool ChessEngineAllPossibleMovesGenerator::MovePieceTo(const PosType ActualPosX,
 
 		if (ChessEngineThreadsStartData::FullSpeedExecutionInThreads == true)
         {
-            if (DeepLevel < ChessEngineConfigurationFileReaderWriterObject.MaxDeepLevel)
+            if (DepthLevel < ChessEngineConfigurationFileReaderWriterObject.MaxDepthLevel)
             {
-                DeepLevel++;
+                DepthLevel++;
                 GenerateAllPossibleCombinationsOfMoves<ColorOpposite, Color, Color == White ? StartOfWhitePiecesNum : StartOfBlackPiecesNum, Color == White ? EndOfWhitePiecesNum : EndOfBlackPiecesNum>();
-                DeepLevel--;
+                DepthLevel--;
             }
         }
 		else
         {
-            if (DeepLevel < ChessEngineConfigurationFileReaderWriterObject.MaxDeepLevel - 1)
+            if (DepthLevel < ChessEngineConfigurationFileReaderWriterObject.MaxDepthLevel - 1)
             {
-                ChessEngineResultsStatisticsObject.NumberOfExecutionsOnLevel[DeepLevel]++;
+                ChessEngineResultsStatisticsObject.NumberOfExecutionsOnLevel[DepthLevel]++;
 
-                if (DeepLevel == MaximalLengthOfPathToFindChessBoardsForFullSpeed - 1)
+                if (DepthLevel == MaximalLengthOfPathToFindChessBoardsForFullSpeed - 1)
                     SaveChessBoardStateForFullSpeedThreadsExecution();
                 else
                 {
-                    DeepLevel++;
+                    DepthLevel++;
                     GenerateAllPossibleCombinationsOfMoves<ColorOpposite, Color, Color == White ? StartOfWhitePiecesNum : StartOfBlackPiecesNum, Color == White ? EndOfWhitePiecesNum : EndOfBlackPiecesNum>();
-                    DeepLevel--;
+                    DepthLevel--;
                 }
             }
         }
 
-		ActuallyInvestigatedMovesPath[DeepLevel].Type = 0;
-		ActuallyInvestigatedMovesPath[DeepLevel].Score = 0;
+		ActuallyInvestigatedMovesPath[DepthLevel].Type = 0;
+		ActuallyInvestigatedMovesPath[DepthLevel].Score = 0;
 		
 		if (IsPawn<Color>(OldActPieceNum) == true)
 			Pieces[OldActPieceNum].Promoted = OldActPieceNumPromoted;
@@ -652,7 +652,7 @@ inline bool ChessEngineAllPossibleMovesGenerator::VerifyCheckOfKing()	noexcept
 		if (ChessEngineConfigurationFileReaderWriterObject.PrintGeneralInterMoveInfo == true)
 		{
 			LoggersManagerObject.Log(STREAM(""));
-			LoggersManagerObject.Log(STREAM("Inter Move " << ColorName[Color] << " S1 = ( " << GetChessMovesPathAsString(GetChessMovesPathVector(DeepLevel, ActuallyInvestigatedMovesPath)) << "-> " << ChessEngineResultsStatisticsObject.GetNumberOfAllMovesTotal() << " " << int(DeepLevel) << " ) " << string(100, SpaceChar)));
+			LoggersManagerObject.Log(STREAM("Inter Move " << ColorName[Color] << " S1 = ( " << GetChessMovesPathAsString(GetChessMovesPathVector(DepthLevel, ActuallyInvestigatedMovesPath)) << "-> " << ChessEngineResultsStatisticsObject.GetNumberOfAllMovesTotal() << " " << int(DepthLevel) << " ) " << string(100, SpaceChar)));
 		}
 		#endif
 	}
@@ -692,7 +692,9 @@ void ChessEngineAllPossibleMovesGenerator::GenerateAllPossibleCombinationsOfMove
 		GenerateAllPossibleMovesForPiece(Knight2Num[Color], PossibleMove, &ChessEngineAllPossibleMovesGenerator::GenerateAllPossibleMovesForKnight<Color, ColorOpposite, OppositePieceNumRangeStart, OppositePieceNumRangeEnd>);
         GenerateAllPossibleMovesForPiece(KingNum[Color], PossibleMove, &ChessEngineAllPossibleMovesGenerator::GenerateAllPossibleMovesForKing<Color, ColorOpposite, OppositePieceNumRangeStart, OppositePieceNumRangeEnd>);
 
-		UpdateDataForIsCheckAndPossibleMove<Color, ColorOpposite, OppositePieceNumRangeStart, OppositePieceNumRangeEnd>(IsCheck, PossibleMove);
+        /* Next line is to protect excessive memory usage when MaxDepthLevel > 5 since then it finds too many paths to mates. In final ChessEngine version must be updated since must keep only the best line to move */
+        if (DepthLevel <= ChessEngineConfigurationFileReaderWriterObject.MaxDepthLevelToGetFoundMovesPathsToMate)
+		    UpdateDataForIsCheckAndPossibleMove<Color, ColorOpposite, OppositePieceNumRangeStart, OppositePieceNumRangeEnd>(IsCheck, PossibleMove);
 	}
 	CATCH("generating all possible combinations of moves");
 }
@@ -706,7 +708,7 @@ inline void ChessEngineAllPossibleMovesGenerator::UpdateDataForIsCheckAndPossibl
 		if (ChessEngineConfigurationFileReaderWriterObject.PrintGeneralInterMoveInfo == true)
 		{
 			LoggersManagerObject.Log(STREAM(""));
-			LoggersManagerObject.Log(STREAM("Inter Move " << ColorName[Color] << " S2 = ( " << GetChessMovesPathAsString(GetChessMovesPathVector(DeepLevel, ActuallyInvestigatedMovesPath)) << "-> " << ChessEngineResultsStatisticsObject.GetNumberOfAllMovesTotal() << " " << int(DeepLevel) << " ) " << string(100, SpaceChar)));
+			LoggersManagerObject.Log(STREAM("Inter Move " << ColorName[Color] << " S2 = ( " << GetChessMovesPathAsString(GetChessMovesPathVector(DepthLevel, ActuallyInvestigatedMovesPath)) << "-> " << ChessEngineResultsStatisticsObject.GetNumberOfAllMovesTotal() << " " << int(DepthLevel) << " ) " << string(100, SpaceChar)));
 		}
 
 		if (PossibleMove == false && ChessEngineConfigurationFileReaderWriterObject.PrintPossibleMoveFalseState == true)
@@ -714,7 +716,7 @@ inline void ChessEngineAllPossibleMovesGenerator::UpdateDataForIsCheckAndPossibl
 			ChessEngineDataInitializerObject.PrintActualStateOfPieces();
             ChessEngineChessboardPrinterObject.LogPrintActualChessBoardStateToStreams(&LoggersManager::LogWithoutLineInfoOnlyToFiles, 0);
 			LoggersManagerObject.Log(STREAM(""));
-			LoggersManagerObject.Log(STREAM("Poss Move " << ColorName[Color] << " False = ( " << GetChessMovesPathAsString(GetChessMovesPathVector(DeepLevel, ActuallyInvestigatedMovesPath)) << "-> " << ChessEngineResultsStatisticsObject.GetNumberOfAllMovesTotal() << " " << int(DeepLevel) << " ) " << string(100, SpaceChar)));
+			LoggersManagerObject.Log(STREAM("Poss Move " << ColorName[Color] << " False = ( " << GetChessMovesPathAsString(GetChessMovesPathVector(DepthLevel, ActuallyInvestigatedMovesPath)) << "-> " << ChessEngineResultsStatisticsObject.GetNumberOfAllMovesTotal() << " " << int(DepthLevel) << " ) " << string(100, SpaceChar)));
 			if (ChessEngineConfigurationFileReaderWriterObject.StopWhenPossibleMoveFalseState == true)
 				getchar();
 		}
@@ -722,12 +724,12 @@ inline void ChessEngineAllPossibleMovesGenerator::UpdateDataForIsCheckAndPossibl
 
 		if (IsCheck == true && PossibleMove == false)
 		{
-            SaveTheBestMovesPath<ColorOpposite, true>(DeepLevel, ChessEngineResultsStatisticsObject.TheHighestScoredFoundMateMovesPathForAdvantageOf[White], ChessEngineResultsStatisticsObject.TheHighestScoredFoundMateMovesPathForAdvantageOf[Black]);
-			
-			auto&& [ActualMovesPathScore, ActualMovesPathTypeSum] = SumActuallyInvestigatedMovesPathScore(DeepLevel);
+            SaveTheBestMovesPath<ColorOpposite, true>(DepthLevel, ChessEngineResultsStatisticsObject.TheHighestScoredFoundMateMovesPathForAdvantageOf[White], ChessEngineResultsStatisticsObject.TheHighestScoredFoundMateMovesPathForAdvantageOf[Black]);
 
-			ChessEngineResultsStatisticsObject.AllFoundMovesPathsToMate[Color].emplace_back(ChessScoredMovesPath{ActualMovesPathScore, ActualMovesPathTypeSum, {}, DeepLevel });
-            CopyChessMovesPathsVector(DeepLevel, ChessEngineResultsStatisticsObject.AllFoundMovesPathsToMate[Color].back().MovesPath, ActuallyInvestigatedMovesPath);
+			auto&& [ActualMovesPathScore, ActualMovesPathTypeSum] = SumActuallyInvestigatedMovesPathScore(DepthLevel);
+
+			ChessEngineResultsStatisticsObject.AllFoundMovesPathsToMate[Color].emplace_back(ChessScoredMovesPath{ActualMovesPathScore, ActualMovesPathTypeSum, {}, DepthLevel });
+            CopyChessMovesPathsVector(DepthLevel, ChessEngineResultsStatisticsObject.AllFoundMovesPathsToMate[Color].back().MovesPath, ActuallyInvestigatedMovesPath);
 
 			#ifdef __DEBUG__
 			if (ChessEngineConfigurationFileReaderWriterObject.PrintActualStateWhenMateFound == true)
@@ -735,7 +737,7 @@ inline void ChessEngineAllPossibleMovesGenerator::UpdateDataForIsCheckAndPossibl
 				LoggersManagerObject.Log(STREAM(""));
 				LoggersManagerObject.Log(STREAM("FOUND MATE"));
                 ChessEngineChessboardPrinterObject.LogPrintActualChessBoardStateToStreams(&LoggersManager::LogWithoutLineInfoOnlyToFiles, 0);
-				LoggersManagerObject.Log(STREAM("PATH TO MATE: " << GetChessMovesPathAsString(GetChessMovesPathVector(DeepLevel, ActuallyInvestigatedMovesPath)) << "-> " << ChessEngineResultsStatisticsObject.GetNumberOfAllMovesTotal() << " " << int(DeepLevel)));
+				LoggersManagerObject.Log(STREAM("PATH TO MATE: " << GetChessMovesPathAsString(GetChessMovesPathVector(DepthLevel, ActuallyInvestigatedMovesPath)) << "-> " << ChessEngineResultsStatisticsObject.GetNumberOfAllMovesTotal() << " " << int(DepthLevel)));
 				ChessEngineDataInitializerObject.PrintActualStateOfPieces();
 			}
 			if (ChessEngineConfigurationFileReaderWriterObject.StopWhenMateFound == true)
@@ -745,10 +747,10 @@ inline void ChessEngineAllPossibleMovesGenerator::UpdateDataForIsCheckAndPossibl
 		else
 		if (IsCheck == false && PossibleMove == false)
         {
-            auto&& [ActualMovesPathScore, ActualMovesPathTypeSum] = SumActuallyInvestigatedMovesPathScore(DeepLevel);
+            auto&& [ActualMovesPathScore, ActualMovesPathTypeSum] = SumActuallyInvestigatedMovesPathScore(DepthLevel);
 
-			ChessEngineResultsStatisticsObject.AllFoundMovesPathsToStalemate.emplace_back(ChessScoredMovesPath{ActualMovesPathScore, ActualMovesPathTypeSum, {}, DeepLevel });
-            CopyChessMovesPathsVector(DeepLevel, ChessEngineResultsStatisticsObject.AllFoundMovesPathsToStalemate.back().MovesPath, ActuallyInvestigatedMovesPath);
+			ChessEngineResultsStatisticsObject.AllFoundMovesPathsToStalemate.emplace_back(ChessScoredMovesPath{ActualMovesPathScore, ActualMovesPathTypeSum, {}, DepthLevel });
+            CopyChessMovesPathsVector(DepthLevel, ChessEngineResultsStatisticsObject.AllFoundMovesPathsToStalemate.back().MovesPath, ActuallyInvestigatedMovesPath);
         }
 	}
 	CATCH("updating data for check and possible move");

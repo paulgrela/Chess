@@ -26,7 +26,7 @@ class ChessEngineAllPossibleMovesGenerator
 	friend class ChessEngineBestMoveFinder;
     friend class ChessEngineResultsStatistics;
 private:
-	LengthType DeepLevel = 0;
+	LengthType DepthLevel = 0;
 	bool IsAnyPawnPromoted = false;
 private:
 	ChessMove ActuallyInvestigatedMovesPath[MaximalLengthOfFoundPath];

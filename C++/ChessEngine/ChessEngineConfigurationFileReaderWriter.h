@@ -44,7 +44,8 @@ class ChessEngineConfigurationFileReaderWriter
 public:
     std::string ChessBoardFileName;
 
-    LengthType MaxDeepLevel;
+    LengthType MaxDepthLevel;
+    LengthType MaxDepthLevelToGetFoundMovesPathsToMate;
 
     bool ReverseColorOfPieces;
 

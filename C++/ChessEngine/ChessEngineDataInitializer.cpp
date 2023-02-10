@@ -14,7 +14,7 @@ void ChessEngineDataInitializer::ClearDataForAllPossibleMovesGeneratorAlgorithm(
 {
 	try
 	{
-        ChessEngineAllPossibleMovesGeneratorLocalReference.DeepLevel = 0;
+        ChessEngineAllPossibleMovesGeneratorLocalReference.DepthLevel = 0;
         ChessEngineAllPossibleMovesGeneratorLocalReference.IsAnyPawnPromoted = false;
 
 		for (ChessMove& InvestigatedMove : ChessEngineAllPossibleMovesGeneratorLocalReference.ActuallyInvestigatedMovesPath)

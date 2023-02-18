@@ -7,7 +7,7 @@
 
 #ifdef UNIX_PLATFORM
 #include <memory>
-#include <string.h>
+#include <cstring>
 #endif
 
 #define USE_MPI
@@ -70,7 +70,7 @@ inline void ChessEngineMainThreadsManager::PrepareData(const string& ChessBoardF
         #ifdef USE_MPI
         if (MPIProcessIdentifier == 0)
         #endif
-		LoggersManagerObject.InitializeLoggerManagerDataForTask(string("TEST_" + to_string(TestId)).c_str(), LogDirectory, ActualDateTimeStr, true, 0, function<void(const uint64_t& CurrentThreadId, const uint64_t FileNumber, const string& MessageStr)>());
+		LoggersManagerObject.InitializeLoggerManagerDataForTask(string("TEST_" + to_string(TestId)), LogDirectory, ActualDateTimeStr, true, 0, function<void(const uint64_t& CurrentThreadId, const uint64_t FileNumber, const string& MessageStr)>());
 
         for (auto& ChessEngineAllPossibleMovesGeneratorObject : ChessEngineAllPossibleMovesGeneratorObjects)
         {
@@ -283,9 +283,9 @@ inline void ChessEngineMainThreadsManager::GatherFoundChessScoredMovesPathsResul
 {
     try
     {
-        int AllFoundMovesPathsToMateWhiteSize = ChessEngineAllPossibleMovesGeneratorObjects[0].ChessEngineResultsStatisticsObject.AllFoundMovesPathsToMate[White].size();
-        int AllFoundMovesPathsToMateBlackSize = ChessEngineAllPossibleMovesGeneratorObjects[0].ChessEngineResultsStatisticsObject.AllFoundMovesPathsToMate[Black].size();
-        int AllFoundMovesPathsToStalemateSize = ChessEngineAllPossibleMovesGeneratorObjects[0].ChessEngineResultsStatisticsObject.AllFoundMovesPathsToStalemate.size();
+        int AllFoundMovesPathsToMateWhiteSize = static_cast<int>(ChessEngineAllPossibleMovesGeneratorObjects[0].ChessEngineResultsStatisticsObject.AllFoundMovesPathsToMate[White].size());
+        int AllFoundMovesPathsToMateBlackSize = static_cast<int>(ChessEngineAllPossibleMovesGeneratorObjects[0].ChessEngineResultsStatisticsObject.AllFoundMovesPathsToMate[Black].size());
+        int AllFoundMovesPathsToStalemateSize = static_cast<int>(ChessEngineAllPossibleMovesGeneratorObjects[0].ChessEngineResultsStatisticsObject.AllFoundMovesPathsToStalemate.size());
 
         int AllFoundMovesPathsToMateBlackLengths[MaxNumberOfMPIProcesses];
         int AllFoundMovesPathsToMateWhiteLengths[MaxNumberOfMPIProcesses];
@@ -479,7 +479,7 @@ ChessEngineMainThreadsManager::ChessEngineMainThreadsManager()
             {
                 ChessEngineConfigurationFileReaderWriterObject.FirstMove = false;
 
-                ChessEngineConfigurationFileReaderWriterObject.MaxDepthLevel = ChessEngineTestObject.MaxDepthLevel;
+                ChessEngineConfigurationFileReaderWriterObject.MaxDepthLevel = static_cast<LengthType>(ChessEngineTestObject.MaxDepthLevel);
                 ChessEngineConfigurationFileReaderWriterObject.ReverseColorOfPieces = ChessEngineTestObject.ReverseColorOfPieces;
 
                 PrepareData(ChessEngineTestObject.ChessBoardFileName, ChessEngineTestObject.TestId, ActualDateTimeStr);

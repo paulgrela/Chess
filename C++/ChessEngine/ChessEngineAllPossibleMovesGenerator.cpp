@@ -2,7 +2,7 @@
 #include "DestinationPlatform.h"
 
 #ifdef UNIX_PLATFORM
-#include <string.h>
+#include <cstring>
 #endif
 
 #include <vector>
@@ -126,10 +126,10 @@ inline void ChessEngineAllPossibleMovesGenerator::SaveActuallyInvestigatedMovesP
 	try
 	{
 		ChessMoveSave.PieceNum = OldActPieceNum;
-		ChessMoveSave.PrevPosX = ActualPosX;
-		ChessMoveSave.PrevPosY = ActualPosY;
-		ChessMoveSave.NextPosX = NewPosX;
-		ChessMoveSave.NextPosY = NewPosY;
+		ChessMoveSave.PrevPosX = static_cast<short int>(ActualPosX);
+		ChessMoveSave.PrevPosY = static_cast<short int>(ActualPosY);
+		ChessMoveSave.NextPosX = static_cast<short int>(NewPosX);
+		ChessMoveSave.NextPosY = static_cast<short int>(NewPosY);
 	}
 	CATCH("saving actually investigated moves path")
 }

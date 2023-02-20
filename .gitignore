@@ -2,6 +2,6 @@
 C++/ChessEngine/build/
 C++/ChessEngine/MPIbuild/
 C++/ChessEngine/cmake-build-release/
-CUDA/ChessSolutionCUDA/ChessEngineProjectCUDA/build/
+CUDA/ChessEngineCUDA/build/
 Python/ChessInterface/__pycache__/
 Python/ChessInterface/engines/

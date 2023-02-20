@@ -17,28 +17,28 @@ set(CMAKE_CXX_FLAGS_RELEASE "-O3")
 set(CMAKE_CXX_FLAGS "-Ofast")
 
 include_directories(
-        "../../Common/HandleError"
-        "../../Common/Platform"
-        "../../Common/Include"
-        "../../Common/Logger"
-        "../../Common/FileUtils"
-        "../../Common/StringUtils"
-        "../../Common/DateTimeUtils"
-        "../../Common/TerminalColorsUtils"
+        "../Common/HandleError"
+        "../Common/Platform"
+        "../Common/Include"
+        "../Common/Logger"
+        "../Common/FileUtils"
+        "../Common/StringUtils"
+        "../Common/DateTimeUtils"
+        "../Common/TerminalColorsUtils"
 )
 
 add_executable(
         ChessEngineProjectCUDA
-        ../../Common/Logger/Logger.h
-        ../../Common/Logger/Logger.cpp
-        ../../Common/FileUtils/FileUtils.h
-        ../../Common/FileUtils/FileUtils.cpp
-        ../../Common/StringUtils/StringUtils.h
-        ../../Common/StringUtils/StringUtils.cpp
-        ../../Common/DateTimeUtils/DateTimeUtils.h
-        ../../Common/DateTimeUtils/DateTimeUtils.cpp
-        ../../Common/HandleError/HandleErrorCUDA.h
-        ../../Common/HandleError/HandleErrorCUDA.cu
+        ../Common/Logger/Logger.h
+        ../Common/Logger/Logger.cpp
+        ../Common/FileUtils/FileUtils.h
+        ../Common/FileUtils/FileUtils.cpp
+        ../Common/StringUtils/StringUtils.h
+        ../Common/StringUtils/StringUtils.cpp
+        ../Common/DateTimeUtils/DateTimeUtils.h
+        ../Common/DateTimeUtils/DateTimeUtils.cpp
+        ../Common/HandleError/HandleErrorCUDA.h
+        ../Common/HandleError/HandleErrorCUDA.cu
         ChessEngineMain.cu
         ChessEngineTypes.h
         ChessEngineTypesCUDA.h

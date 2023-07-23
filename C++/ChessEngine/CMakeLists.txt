@@ -18,9 +18,13 @@ include_directories(
 
 add_executable(
         ChessEngineProject
+        ../Common/Logger/Logger.h
         ../Common/Logger/Logger.cpp
+        ../Common/FileUtils/FileUtils.h
         ../Common/FileUtils/FileUtils.cpp
+        ../Common/StringUtils/StringUtils.h
         ../Common/StringUtils/StringUtils.cpp
+        ../Common/DateTimeUtils/DateTimeUtils.h
         ../Common/DateTimeUtils/DateTimeUtils.cpp
         ChessEngineMain.cpp
         ChessEngineChessMoveBasicOperations.cpp
